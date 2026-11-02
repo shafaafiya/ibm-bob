@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Psychological & Emotional Wellbeing Dashboard</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- Custom Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sage:    { 50:'#f2f7f4', 100:'#e0ede6', 200:'#bdd9c8', 300:'#8fbe9f', 400:'#5fa076', 500:'#3d8257', 600:'#2e6642', 700:'#245234', 800:'#1e4229', 900:'#192f20' },
+            lavender:{ 50:'#f5f3ff', 100:'#ede9fe', 200:'#ddd6fe', 300:'#c4b5fd', 400:'#a78bfa', 500:'#8b5cf6', 600:'#7c3aed', 700:'#6d28d9', 800:'#5b21b6', 900:'#4c1d95' },
+            sky:     { 50:'#f0f9ff', 100:'#e0f2fe', 200:'#bae6fd', 300:'#7dd3fc', 400:'#38bdf8', 500:'#0ea5e9', 600:'#0284c7', 700:'#0369a1', 800:'#075985', 900:'#0c4a6e' },
+            peach:   { 50:'#fff7ed', 100:'#ffedd5', 200:'#fed7aa', 300:'#fdba74', 400:'#fb923c', 500:'#f97316', 600:'#ea580c', 700:'#c2410c', 800:'#9a3412', 900:'#7c2d12' },
+            rose:    { 50:'#fff1f2', 100:'#ffe4e6', 200:'#fecdd3', 300:'#fda4af', 400:'#fb7185', 500:'#f43f5e', 600:'#e11d48', 700:'#be123c', 800:'#9f1239', 900:'#881337' }
+          },
+          fontFamily: { sans: ['"Inter"', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-slate-50 font-sans text-slate-700 antialiased">
+
+  <!-- ═══════════════════════════════════════════════
+       HEADER / NAVBAR
+  ═══════════════════════════════════════════════ -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
+      <!-- Brand -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sage-400 to-lavender-400 flex items-center justify-center flex-shrink-0">
+          <!-- Brain SVG icon -->
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-base font-bold text-slate-800 leading-tight">MindMetrics Dashboard</h1>
+          <p class="text-xs text-slate-400 font-medium">Student Psychological &amp; Emotional Wellbeing</p>
+        </div>
+      </div>
+
+      <!-- Last Updated + Disclaimer badge + Compare Toggle -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-sage-400 animate-pulse"></span>
+          Universitas Nusantara · Survey 2023–2024
+        </span>
+        <span class="hidden sm:inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full font-medium">
+          ⚠ Descriptive only — not a diagnostic tool
+        </span>
+        <!-- Comparison Mode Toggle Button -->
+        <button id="btn-compare-toggle"
+          class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-200
+                 bg-white border-lavender-300 text-lavender-700 hover:bg-lavender-50"
+          aria-pressed="false" title="Toggle Comparison Mode">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          <span id="compare-toggle-label">Compare Mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════════ -->
+  <main class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+    <!-- ── FILTER PANEL ── -->
+    <section aria-label="Dashboard Filters">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <h2 class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+            <svg class="w-4 h-4 text-lavender-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
+            </svg>
+            Dashboard Filters
+          </h2>
+          <button id="btn-reset-filters"
+            class="text-xs font-medium text-lavender-600 hover:text-lavender-800 bg-lavender-50 hover:bg-lavender-100 px-3 py-1.5 rounded-lg transition-colors duration-150">
+            Reset Filters
+          </button>
+        </div>
+
+        <!-- Filter Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+          <!-- Study Program -->
+          <div class="filter-group">
+            <label for="filter-program" class="filter-label">Study Program</label>
+            <div class="relative">
+              <select id="filter-program" class="filter-select">
+                <option value="All">All Programs</option>
+                <option value="Psychology">Psychology</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Business Administration">Business Administration</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Education">Education</option>
+              </select>
+              <div class="filter-select-arrow">▾</div>
+            </div>
+          </div>
+
+          <!-- Semester -->
+          <div class="filter-group">
+            <label for="filter-semester" class="filter-label">Semester</label>
+            <div class="relative">
+              <select id="filter-semester" class="filter-select">
+                <option value="All">All Semesters</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+              </select>
+              <div class="filter-select-arrow">▾</div>
+            </div>
+          </div>
+
+          <!-- Emotional Category -->
+          <div class="filter-group">
+            <label for="filter-emotion" class="filter-label">Emotional Category</label>
+            <div class="relative">
+              <select id="filter-emotion" class="filter-select">
+                <option value="All">All Categories</option>
+                <option value="Stable">Stable</option>
+                <option value="Mild Distress">Mild Distress</option>
+                <option value="Moderate Distress">Moderate Distress</option>
+                <option value="Severe Distress">Severe Distress</option>
+              </select>
+              <div class="filter-select-arrow">▾</div>
+            </div>
+          </div>
+
+          <!-- Survey Period -->
+          <div class="filter-group">
+            <label for="filter-period" class="filter-label">Survey Period</label>
+            <div class="relative">
+              <select id="filter-period" class="filter-select">
+                <option value="All">All Periods</option>
+                <option value="2023-S1">2023 Semester 1</option>
+                <option value="2023-S2">2023 Semester 2</option>
+                <option value="2024-S1">2024 Semester 1</option>
+                <option value="2024-S2">2024 Semester 2</option>
+              </select>
+              <div class="filter-select-arrow">▾</div>
+            </div>
+          </div>
+
+        </div><!-- /Filter Grid -->
+
+        <!-- Active Filter Tags -->
+        <div id="active-filter-tags" class="flex flex-wrap gap-2 mt-3 hidden"></div>
+      </div>
+    </section>
+
+    <!-- ══ MAIN DASHBOARD CONTENT (wrapped for comparison dimming) ══ -->
+    <div id="main-dashboard">
+
+    <!-- ── KPI CARDS ── -->
+    <section aria-label="Key Performance Indicators">
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+        <!-- KPI: Total Respondents -->
+        <div class="kpi-card border-t-4 border-sky-400">
+          <div class="kpi-icon-wrap bg-sky-100 text-sky-500">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Total Respondents</p>
+            <p class="kpi-value" id="kpi-total">480</p>
+            <p class="kpi-sub" id="kpi-total-sub">Across all programs</p>
+          </div>
+        </div>
+
+        <!-- KPI: Avg Psychological Wellbeing Score -->
+        <div class="kpi-card border-t-4 border-sage-400">
+          <div class="kpi-icon-wrap bg-sage-100 text-sage-500">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Avg Wellbeing Score</p>
+            <p class="kpi-value" id="kpi-wellbeing">63.0</p>
+            <p class="kpi-sub" id="kpi-wellbeing-sub">Out of 100 points</p>
+          </div>
+        </div>
+
+        <!-- KPI: Avg Stress Level -->
+        <div class="kpi-card border-t-4 border-peach-400">
+          <div class="kpi-icon-wrap bg-peach-100 text-peach-500">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Avg Stress Level</p>
+            <p class="kpi-value" id="kpi-stress">5.65</p>
+            <p class="kpi-sub" id="kpi-stress-sub">Scale 1–10</p>
+          </div>
+        </div>
+
+        <!-- KPI: Emotional Stability Score -->
+        <div class="kpi-card border-t-4 border-lavender-400">
+          <div class="kpi-icon-wrap bg-lavender-100 text-lavender-500">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Emotional Stability</p>
+            <p class="kpi-value" id="kpi-stability">59.75</p>
+            <p class="kpi-sub" id="kpi-stability-sub">Out of 100 points</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── ROW 1: Wellbeing Trend + Emotional Distribution ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+      <!-- Psychological Wellbeing Trend (wider) -->
+      <section class="lg:col-span-3 chart-card" aria-label="Psychological Wellbeing Trend">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Psychological Wellbeing Trend</h3>
+            <p class="chart-subtitle">Average wellbeing score across survey periods</p>
+          </div>
+          <span class="chart-badge bg-sage-100 text-sage-700">Line Chart</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="chart-wellbeing-trend" aria-label="Wellbeing trend line chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Emotional Level Distribution (narrower) -->
+      <section class="lg:col-span-2 chart-card" aria-label="Emotional Level Distribution">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Emotional Level Distribution</h3>
+            <p class="chart-subtitle">Proportion of emotional categories</p>
+          </div>
+          <span class="chart-badge bg-lavender-100 text-lavender-700">Doughnut</span>
+        </div>
+        <div class="chart-body chart-body--doughnut">
+          <canvas id="chart-emotional-dist" aria-label="Emotional distribution doughnut chart"></canvas>
+        </div>
+        <!-- Legend -->
+        <div id="legend-emotional-dist" class="flex flex-wrap justify-center gap-3 mt-3 px-2 pb-1"></div>
+      </section>
+
+    </div>
+
+    <!-- ── ROW 2: Stress Per Semester + Psych Condition per Program ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Stress Level per Semester -->
+      <section class="chart-card" aria-label="Stress Level per Semester">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Stress Level per Semester</h3>
+            <p class="chart-subtitle">Average stress by academic semester (1–10 scale)</p>
+          </div>
+          <span class="chart-badge bg-peach-100 text-peach-700">Bar Chart</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="chart-stress-semester" aria-label="Stress per semester bar chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Psychological Condition per Study Program -->
+      <section class="chart-card" aria-label="Psychological Condition per Study Program">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Psychological Condition per Program</h3>
+            <p class="chart-subtitle">Wellbeing, stress &amp; resilience scores per study program</p>
+          </div>
+          <span class="chart-badge bg-sky-100 text-sky-700">Radar</span>
+        </div>
+        <div class="chart-body chart-body--radar">
+          <canvas id="chart-psych-program" aria-label="Psychological condition radar chart"></canvas>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ── ROW 3: Emotional State Distribution + Academic Stress Factors ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Emotional State Distribution -->
+      <section class="chart-card" aria-label="Emotional State Distribution">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Emotional State Distribution</h3>
+            <p class="chart-subtitle">Top emotions reported by students</p>
+          </div>
+          <span class="chart-badge bg-lavender-100 text-lavender-700">Horizontal Bar</span>
+        </div>
+        <div class="chart-body chart-body--hbar">
+          <canvas id="chart-emotional-state" aria-label="Emotional state horizontal bar chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Academic Stress Factors -->
+      <section class="chart-card" aria-label="Academic Stress Factors">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Academic Stress Factors</h3>
+            <p class="chart-subtitle">Main stress sources identified by respondents</p>
+          </div>
+          <span class="chart-badge bg-peach-100 text-peach-700">Horizontal Bar</span>
+        </div>
+        <div class="chart-body chart-body--hbar">
+          <canvas id="chart-stress-factors" aria-label="Academic stress factors chart"></canvas>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ── ROW 4: Coping Strategies + Scatter Plot ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+      <!-- Coping Strategy Distribution -->
+      <section class="lg:col-span-2 chart-card" aria-label="Coping Strategy Distribution">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Coping Strategy Distribution</h3>
+            <p class="chart-subtitle">How students manage psychological stress</p>
+          </div>
+          <span class="chart-badge bg-sage-100 text-sage-700">Polar Area</span>
+        </div>
+        <div class="chart-body chart-body--polar">
+          <canvas id="chart-coping" aria-label="Coping strategy polar chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Workload vs Stress Scatter -->
+      <section class="lg:col-span-3 chart-card" aria-label="Academic Workload vs Stress Level">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Academic Workload vs Stress Level</h3>
+            <p class="chart-subtitle">Correlation between perceived workload and stress (all programs)</p>
+          </div>
+          <span class="chart-badge bg-sky-100 text-sky-700">Scatter</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="chart-scatter" aria-label="Workload vs stress scatter chart"></canvas>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ── ROW 5: Top 10 Emotional Challenges + Wellbeing per Semester ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Top 10 Most Common Emotional Challenges -->
+      <section class="chart-card" aria-label="Top 10 Most Common Emotional Challenges">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Top 10 Emotional Challenges</h3>
+            <p class="chart-subtitle">Most frequently reported psychological challenges</p>
+          </div>
+          <span class="chart-badge bg-rose-100 text-rose-600">Ranked Bar</span>
+        </div>
+        <div class="chart-body chart-body--hbar">
+          <canvas id="chart-challenges" aria-label="Top 10 emotional challenges chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Psychological Wellbeing per Semester -->
+      <section class="chart-card" aria-label="Psychological Wellbeing per Semester">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-title">Wellbeing Score per Semester</h3>
+            <p class="chart-subtitle">Average wellbeing score across academic semesters</p>
+          </div>
+          <span class="chart-badge bg-sage-100 text-sage-700">Area Line</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="chart-wellbeing-semester" aria-label="Wellbeing per semester area line chart"></canvas>
+        </div>
+      </section>
+
+    </div>
+
+    </div><!-- /main-dashboard wrapper -->
+
+    <!-- ══════════════════════════════════════════════════════
+         COMPARISON MODE SECTION (hidden by default)
+    ══════════════════════════════════════════════════════ -->
+    <section id="comparison-section" class="hidden space-y-6" aria-label="Comparison Mode">
+
+      <!-- Comparison Header Banner -->
+      <div class="compare-banner">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-lavender-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          <p class="text-sm font-semibold text-lavender-800">Comparison Mode Active</p>
+        </div>
+        <p class="text-xs text-lavender-600 mt-1">
+          Select two items below to compare their psychological wellbeing metrics side-by-side.
+          You can compare by <strong>Region (Daerah)</strong> or by <strong>Survey Period (Tahun)</strong>.
+        </p>
+      </div>
+
+      <!-- Comparison Type + Selectors -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
+        <div class="flex items-center gap-3 mb-4 flex-wrap">
+          <span class="text-sm font-semibold text-slate-700">Compare by:</span>
+          <!-- Type Radio Buttons styled as pill tabs -->
+          <div class="inline-flex rounded-xl border border-slate-200 overflow-hidden text-xs font-semibold">
+            <button id="cmp-type-region" class="cmp-type-btn cmp-type-active px-4 py-2" data-type="region">
+              📍 Region (Daerah)
+            </button>
+            <button id="cmp-type-period" class="cmp-type-btn px-4 py-2" data-type="period">
+              📅 Period (Tahun)
+            </button>
+          </div>
+        </div>
+
+        <!-- Selector Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Item A -->
+          <div class="compare-selector-card compare-a">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-3 h-3 rounded-full bg-lavender-400 flex-shrink-0"></span>
+              <span class="text-xs font-bold text-lavender-700 uppercase tracking-wide">Item A</span>
+            </div>
+            <label for="cmp-select-a" class="filter-label">Select First Item</label>
+            <div class="relative mt-1">
+              <select id="cmp-select-a" class="filter-select border-lavender-300 focus:border-lavender-500">
+                <option value="">— Choose —</option>
+              </select>
+              <div class="filter-select-arrow">▾</div>
+            </div>
+            <!-- Mini KPI row for A -->
+            <div id="cmp-kpi-a" class="cmp-kpi-mini hidden mt-3 grid grid-cols-2 gap-2"></div>
+          </div>
+
+          <!-- Item B -->
+          <div class="compare-selector-card compare-b">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-3 h-3 rounded-full bg-sky-400 flex-shrink-0"></span>
+              <span class="text-xs font-bold text-sky-700 uppercase tracking-wide">Item B</span>
+            </div>
+            <label for="cmp-select-b" class="filter-label">Select Second Item</label>
+            <div class="relative mt-1">
+              <select id="cmp-select-b" class="filter-select border-sky-300 focus:border-sky-500">
+                <option value="">— Choose —</option>
+              </select>
+              <div class="filter-select-arrow">▾</div>
+            </div>
+            <!-- Mini KPI row for B -->
+            <div id="cmp-kpi-b" class="cmp-kpi-mini hidden mt-3 grid grid-cols-2 gap-2"></div>
+          </div>
+        </div>
+
+        <!-- Run Compare Button -->
+        <div class="mt-4 flex justify-end">
+          <button id="btn-run-compare"
+            class="inline-flex items-center gap-2 bg-lavender-500 hover:bg-lavender-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
+            disabled>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Run Comparison
+          </button>
+        </div>
+      </div>
+
+      <!-- Comparison KPI Delta Cards (shown after running comparison) -->
+      <div id="cmp-kpi-delta" class="hidden">
+        <h3 class="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-lavender-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          Comparison Summary
+          <span id="cmp-label-a-badge" class="ml-2 px-2 py-0.5 rounded-full text-xs bg-lavender-100 text-lavender-700 font-semibold"></span>
+          <span class="text-slate-300 text-xs">vs</span>
+          <span id="cmp-label-b-badge" class="px-2 py-0.5 rounded-full text-xs bg-sky-100 text-sky-700 font-semibold"></span>
+        </h3>
+        <div id="cmp-delta-cards" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"></div>
+      </div>
+
+      <!-- Comparison Charts (shown after running comparison) -->
+      <div id="cmp-charts" class="hidden space-y-6">
+
+        <!-- Row 1: Wellbeing per Semester + Stress per Semester -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <div>
+                <h3 class="chart-title">Wellbeing Score per Semester</h3>
+                <p class="chart-subtitle">Side-by-side comparison across semesters</p>
+              </div>
+              <span class="chart-badge bg-sage-100 text-sage-700">Grouped Bar</span>
+            </div>
+            <div class="chart-body">
+              <canvas id="cmp-chart-wellbeing" aria-label="Comparison wellbeing chart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <div>
+                <h3 class="chart-title">Stress Level per Semester</h3>
+                <p class="chart-subtitle">Side-by-side stress comparison across semesters</p>
+              </div>
+              <span class="chart-badge bg-peach-100 text-peach-700">Grouped Bar</span>
+            </div>
+            <div class="chart-body">
+              <canvas id="cmp-chart-stress" aria-label="Comparison stress chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Emotional Distribution + Stress Factors -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <div>
+                <h3 class="chart-title">Emotional Level Distribution</h3>
+                <p class="chart-subtitle">Category breakdown comparison</p>
+              </div>
+              <span class="chart-badge bg-lavender-100 text-lavender-700">Grouped Bar</span>
+            </div>
+            <div class="chart-body">
+              <canvas id="cmp-chart-emotion-dist" aria-label="Comparison emotional distribution chart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <div>
+                <h3 class="chart-title">Academic Stress Factors</h3>
+                <p class="chart-subtitle">Top stress sources comparison</p>
+              </div>
+              <span class="chart-badge bg-peach-100 text-peach-700">Horizontal Grouped</span>
+            </div>
+            <div class="chart-body chart-body--hbar">
+              <canvas id="cmp-chart-stress-factors" aria-label="Comparison stress factors chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Coping Strategies (full width) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <h3 class="chart-title">Coping Strategy Distribution</h3>
+              <p class="chart-subtitle">How students in each group manage psychological stress</p>
+            </div>
+            <span class="chart-badge bg-sage-100 text-sage-700">Grouped Bar</span>
+          </div>
+          <div class="chart-body">
+            <canvas id="cmp-chart-coping" aria-label="Comparison coping strategies chart"></canvas>
+          </div>
+        </div>
+
+      </div><!-- /cmp-charts -->
+
+    </section><!-- /comparison-section -->
+
+    <!-- ── DISCLAIMER FOOTER CARD ── -->
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 flex gap-3 items-start">
+      <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <p class="text-sm font-semibold text-amber-800">Important Disclaimer</p>
+        <p class="text-xs text-amber-700 mt-0.5 leading-relaxed">
+          This dashboard is intended for <strong>descriptive and educational purposes only</strong>, based on aggregated survey data from Universitas Nusantara students.
+          The data presented here <strong>does not constitute a psychological diagnosis</strong> and should not be used as a clinical or diagnostic tool.
+          For personal mental health concerns, please consult a qualified mental health professional or your campus counseling center.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer class="mt-4 border-t border-slate-200 bg-white">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+      <p>MindMetrics Dashboard · Universitas Nusantara · Survey Period 2023–2024</p>
+      <p>Data is descriptive only and not a clinical diagnostic instrument.</p>
+    </div>
+  </footer>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="text-center">
+      <div class="w-12 h-12 rounded-full border-4 border-lavender-200 border-t-lavender-500 animate-spin mx-auto mb-3"></div>
+      <p class="text-sm text-slate-500 font-medium">Loading dashboard data…</p>
+    </div>
+  </div>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>

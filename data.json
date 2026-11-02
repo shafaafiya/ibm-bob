@@ -1,0 +1,227 @@
+{
+  "meta": {
+    "title": "Student Psychological & Emotional Wellbeing Survey",
+    "institution": "Universitas Nusantara",
+    "survey_periods": ["2023-S1", "2023-S2", "2024-S1", "2024-S2"],
+    "total_respondents": 480
+  },
+  "regions": ["Jakarta", "Bandung", "Surabaya", "Yogyakarta", "Medan", "Makassar"],
+  "study_programs": ["Psychology", "Computer Science", "Business Administration", "Medicine", "Engineering", "Education"],
+  "semesters": [1, 2, 3, 4, 5, 6, 7, 8],
+  "emotional_categories": ["Stable", "Mild Distress", "Moderate Distress", "Severe Distress"],
+  "kpi_by_period": {
+    "2023-S1": { "total_respondents": 108, "avg_wellbeing": 62.4, "avg_stress": 5.8, "emotional_stability": 58.2 },
+    "2023-S2": { "total_respondents": 114, "avg_wellbeing": 60.1, "avg_stress": 6.2, "emotional_stability": 55.7 },
+    "2024-S1": { "total_respondents": 122, "avg_wellbeing": 63.9, "avg_stress": 5.5, "emotional_stability": 61.3 },
+    "2024-S2": { "total_respondents": 136, "avg_wellbeing": 65.7, "avg_stress": 5.1, "emotional_stability": 63.8 }
+  },
+  "wellbeing_trend": {
+    "labels": ["2023-S1", "2023-S2", "2024-S1", "2024-S2"],
+    "datasets": {
+      "Psychology":              [65.2, 63.1, 67.4, 69.0],
+      "Computer Science":        [59.8, 57.4, 62.1, 64.5],
+      "Business Administration": [63.5, 61.8, 65.0, 67.2],
+      "Medicine":                [58.1, 55.3, 60.8, 62.4],
+      "Engineering":             [60.3, 58.6, 61.9, 63.7],
+      "Education":               [66.1, 64.2, 68.5, 70.1],
+      "All":                     [62.4, 60.1, 63.9, 65.7]
+    }
+  },
+  "emotional_distribution": {
+    "All": {
+      "Stable": 168,
+      "Mild Distress": 174,
+      "Moderate Distress": 96,
+      "Severe Distress": 42
+    },
+    "Psychology": {
+      "Stable": 38, "Mild Distress": 32, "Moderate Distress": 14, "Severe Distress": 6
+    },
+    "Computer Science": {
+      "Stable": 22, "Mild Distress": 34, "Moderate Distress": 20, "Severe Distress": 8
+    },
+    "Business Administration": {
+      "Stable": 30, "Mild Distress": 28, "Moderate Distress": 16, "Severe Distress": 6
+    },
+    "Medicine": {
+      "Stable": 20, "Mild Distress": 32, "Moderate Distress": 24, "Severe Distress": 14
+    },
+    "Engineering": {
+      "Stable": 26, "Mild Distress": 30, "Moderate Distress": 16, "Severe Distress": 8
+    },
+    "Education": {
+      "Stable": 32, "Mild Distress": 18, "Moderate Distress": 6, "Severe Distress": 0
+    }
+  },
+  "stress_per_semester": {
+    "All":                     [4.2, 5.1, 5.5, 6.0, 6.3, 6.7, 5.9, 5.2],
+    "Psychology":              [3.9, 4.8, 5.1, 5.7, 5.9, 6.2, 5.4, 4.8],
+    "Computer Science":        [4.5, 5.4, 5.9, 6.5, 6.8, 7.1, 6.3, 5.6],
+    "Business Administration": [4.1, 4.9, 5.3, 5.9, 6.1, 6.5, 5.7, 5.0],
+    "Medicine":                [4.8, 5.7, 6.2, 6.8, 7.1, 7.4, 6.6, 5.9],
+    "Engineering":             [4.6, 5.5, 5.8, 6.3, 6.6, 6.9, 6.1, 5.4],
+    "Education":               [3.7, 4.5, 4.8, 5.3, 5.6, 5.9, 5.1, 4.5]
+  },
+  "psych_condition_per_program": {
+    "labels": ["Psychology", "Computer Science", "Business Administration", "Medicine", "Engineering", "Education"],
+    "wellbeing_score": [67.2, 61.5, 64.8, 59.3, 62.1, 68.7],
+    "stress_score":    [5.2, 6.1, 5.7, 6.8, 6.3, 4.9],
+    "resilience_score":[70.1, 62.4, 66.3, 58.8, 63.5, 71.2]
+  },
+  "emotional_state_distribution": {
+    "All": {
+      "labels": ["Anxious", "Overwhelmed", "Content", "Motivated", "Burnt Out", "Hopeful", "Lonely", "Neutral", "Frustrated", "Confident"],
+      "data":   [112,       98,            86,       74,          68,          62,         56,       48,       44,            32]
+    },
+    "2023-S1": {
+      "labels": ["Anxious", "Overwhelmed", "Content", "Motivated", "Burnt Out", "Hopeful", "Lonely", "Neutral", "Frustrated", "Confident"],
+      "data":   [26, 22, 20, 17, 14, 13, 12, 10, 9, 7]
+    },
+    "2023-S2": {
+      "labels": ["Anxious", "Overwhelmed", "Content", "Motivated", "Burnt Out", "Hopeful", "Lonely", "Neutral", "Frustrated", "Confident"],
+      "data":   [28, 24, 21, 18, 16, 15, 13, 11, 10, 8]
+    },
+    "2024-S1": {
+      "labels": ["Anxious", "Overwhelmed", "Content", "Motivated", "Burnt Out", "Hopeful", "Lonely", "Neutral", "Frustrated", "Confident"],
+      "data":   [30, 26, 22, 20, 19, 17, 16, 14, 13, 9]
+    },
+    "2024-S2": {
+      "labels": ["Anxious", "Overwhelmed", "Content", "Motivated", "Burnt Out", "Hopeful", "Lonely", "Neutral", "Frustrated", "Confident"],
+      "data":   [28, 26, 23, 19, 19, 17, 15, 13, 12, 8]
+    }
+  },
+  "stress_factors": {
+    "All": {
+      "labels": ["Academic Assignments", "Exam Pressure", "Time Management", "Financial Issues", "Social Relationships", "Career Uncertainty", "Family Expectations", "Sleep Deprivation", "Thesis/Research", "Campus Environment"],
+      "data":   [88, 82, 76, 64, 58, 54, 52, 48, 44, 36]
+    },
+    "Psychology":              { "data": [72, 68, 60, 48, 64, 44, 52, 40, 36, 32] },
+    "Computer Science":        { "data": [92, 88, 82, 68, 52, 58, 48, 56, 52, 38] },
+    "Business Administration": { "data": [84, 78, 74, 72, 60, 62, 54, 44, 40, 34] },
+    "Medicine":                { "data": [94, 90, 78, 62, 54, 48, 58, 60, 66, 42] },
+    "Engineering":             { "data": [90, 86, 80, 66, 50, 56, 50, 54, 54, 36] },
+    "Education":               { "data": [78, 70, 68, 58, 62, 46, 56, 38, 32, 30] }
+  },
+  "coping_strategies": {
+    "All": {
+      "labels": ["Talk to Friends", "Physical Exercise", "Prayer/Meditation", "Hobbies & Leisure", "Seek Counseling", "Social Media", "Sleep More", "Study Groups", "Journaling", "Avoid/Isolate"],
+      "data":   [148, 132, 124, 118, 86, 82, 76, 68, 52, 44]
+    },
+    "Psychology":              { "data": [120, 100, 136, 108, 110, 60, 68, 72, 76, 28] },
+    "Computer Science":        { "data": [132, 144, 104, 124, 72, 96, 88, 80, 48, 56] },
+    "Business Administration": { "data": [152, 120, 116, 124, 80, 88, 72, 76, 48, 40] },
+    "Medicine":                { "data": [140, 128, 132, 104, 96, 76, 80, 64, 56, 52] },
+    "Engineering":             { "data": [144, 152, 112, 120, 72, 88, 80, 72, 44, 48] },
+    "Education":               { "data": [160, 136, 128, 120, 88, 72, 68, 64, 56, 32] }
+  },
+  "scatter_workload_stress": {
+    "Psychology":              [[2,3.1],[3,3.9],[4,4.6],[5,5.2],[6,5.8],[7,6.3],[8,6.1],[9,6.8],[10,7.2],[3,4.1],[5,5.5],[7,6.6],[6,5.9],[4,4.8],[8,6.7]],
+    "Computer Science":        [[2,3.8],[3,4.5],[4,5.1],[5,5.9],[6,6.4],[7,7.0],[8,7.4],[9,7.8],[10,8.1],[3,4.8],[5,6.1],[7,7.2],[6,6.6],[4,5.4],[8,7.6]],
+    "Business Administration": [[2,3.4],[3,4.2],[4,4.8],[5,5.5],[6,6.0],[7,6.5],[8,6.9],[9,7.3],[10,7.7],[3,4.4],[5,5.7],[7,6.7],[6,6.2],[4,5.0],[8,7.1]],
+    "Medicine":                [[2,4.1],[3,5.0],[4,5.7],[5,6.4],[6,7.0],[7,7.5],[8,7.9],[9,8.3],[10,8.7],[3,5.2],[5,6.6],[7,7.7],[6,7.2],[4,5.9],[8,8.1]],
+    "Engineering":             [[2,3.6],[3,4.4],[4,5.0],[5,5.7],[6,6.3],[7,6.8],[8,7.2],[9,7.6],[10,8.0],[3,4.6],[5,5.9],[7,7.0],[6,6.5],[4,5.2],[8,7.4]],
+    "Education":               [[2,2.9],[3,3.7],[4,4.3],[5,5.0],[6,5.5],[7,6.0],[8,6.4],[9,6.8],[10,7.1],[3,3.9],[5,5.2],[7,6.2],[6,5.7],[4,4.5],[8,6.6]]
+  },
+  "emotional_challenges": {
+    "All": {
+      "labels": ["Fear of Failure", "Academic Pressure", "Social Isolation", "Self-Doubt", "Procrastination", "Peer Comparison", "Imposter Syndrome", "Burnout", "Relationship Issues", "Identity Crisis"],
+      "data":   [152, 138, 122, 118, 114, 106, 94, 88, 76, 64]
+    },
+    "2023-S1": { "data": [34, 31, 27, 26, 25, 23, 21, 19, 17, 14] },
+    "2023-S2": { "data": [36, 33, 29, 28, 27, 25, 22, 21, 18, 15] },
+    "2024-S1": { "data": [40, 37, 33, 32, 31, 29, 26, 24, 21, 18] },
+    "2024-S2": { "data": [42, 37, 33, 32, 31, 29, 25, 24, 20, 17] }
+  },
+  "wellbeing_per_semester": {
+    "All":                     [66.2, 63.8, 62.1, 60.5, 59.8, 58.4, 61.3, 64.7],
+    "Psychology":              [68.5, 66.2, 64.8, 63.1, 62.4, 61.0, 63.9, 67.2],
+    "Computer Science":        [63.4, 60.8, 59.2, 57.5, 56.8, 55.4, 58.3, 61.8],
+    "Business Administration": [65.8, 63.4, 61.7, 60.0, 59.3, 57.9, 60.8, 64.3],
+    "Medicine":                [61.2, 58.6, 57.0, 55.3, 54.6, 53.2, 56.1, 59.6],
+    "Engineering":             [64.1, 61.5, 59.8, 58.1, 57.4, 56.0, 58.9, 62.4],
+    "Education":               [69.3, 67.0, 65.3, 63.6, 62.9, 61.5, 64.4, 68.0]
+  },
+
+  "comparison": {
+    "by_region": {
+      "Jakarta":    { "total_respondents": 96,  "avg_wellbeing": 64.2, "avg_stress": 5.6, "emotional_stability": 60.4,
+        "wellbeing_per_semester": [67.1, 64.8, 63.0, 61.4, 60.7, 59.3, 62.1, 65.5],
+        "stress_per_semester":    [4.3, 5.2, 5.6, 6.1, 6.4, 6.8, 6.0, 5.3],
+        "emotional_dist":         { "Stable": 34, "Mild Distress": 36, "Moderate Distress": 18, "Severe Distress": 8 },
+        "stress_factors":         [88, 82, 76, 72, 60, 56, 54, 50, 46, 38],
+        "coping_strategies":      [148, 136, 128, 120, 90, 84, 78, 70, 54, 46]
+      },
+      "Bandung":    { "total_respondents": 82,  "avg_wellbeing": 65.8, "avg_stress": 5.3, "emotional_stability": 62.1,
+        "wellbeing_per_semester": [68.4, 66.1, 64.4, 62.7, 62.0, 60.6, 63.4, 66.9],
+        "stress_per_semester":    [4.1, 5.0, 5.4, 5.9, 6.2, 6.6, 5.8, 5.1],
+        "emotional_dist":         { "Stable": 30, "Mild Distress": 29, "Moderate Distress": 15, "Severe Distress": 8 },
+        "stress_factors":         [82, 78, 72, 60, 56, 50, 50, 44, 40, 34],
+        "coping_strategies":      [152, 140, 132, 124, 92, 80, 74, 66, 56, 40]
+      },
+      "Surabaya":   { "total_respondents": 88,  "avg_wellbeing": 62.5, "avg_stress": 5.9, "emotional_stability": 58.7,
+        "wellbeing_per_semester": [65.5, 63.2, 61.5, 59.8, 59.1, 57.7, 60.5, 64.0],
+        "stress_per_semester":    [4.4, 5.3, 5.7, 6.3, 6.6, 7.0, 6.2, 5.5],
+        "emotional_dist":         { "Stable": 28, "Mild Distress": 34, "Moderate Distress": 18, "Severe Distress": 8 },
+        "stress_factors":         [90, 84, 78, 66, 60, 56, 52, 50, 46, 36],
+        "coping_strategies":      [144, 130, 120, 116, 84, 80, 76, 68, 52, 44]
+      },
+      "Yogyakarta": { "total_respondents": 74,  "avg_wellbeing": 67.3, "avg_stress": 4.9, "emotional_stability": 64.5,
+        "wellbeing_per_semester": [70.0, 67.7, 66.0, 64.3, 63.6, 62.2, 65.0, 68.5],
+        "stress_per_semester":    [3.8, 4.7, 5.1, 5.6, 5.9, 6.3, 5.5, 4.8],
+        "emotional_dist":         { "Stable": 30, "Mild Distress": 26, "Moderate Distress": 12, "Severe Distress": 6 },
+        "stress_factors":         [76, 70, 66, 54, 62, 46, 56, 38, 34, 30],
+        "coping_strategies":      [160, 144, 136, 128, 96, 76, 70, 64, 58, 32]
+      },
+      "Medan":      { "total_respondents": 78,  "avg_wellbeing": 61.4, "avg_stress": 6.1, "emotional_stability": 57.8,
+        "wellbeing_per_semester": [64.1, 61.8, 60.1, 58.4, 57.7, 56.3, 59.1, 62.6],
+        "stress_per_semester":    [4.6, 5.5, 5.9, 6.5, 6.8, 7.2, 6.4, 5.7],
+        "emotional_dist":         { "Stable": 24, "Mild Distress": 30, "Moderate Distress": 16, "Severe Distress": 8 },
+        "stress_factors":         [92, 86, 80, 68, 56, 58, 50, 54, 48, 38],
+        "coping_strategies":      [140, 126, 118, 112, 80, 84, 78, 66, 50, 48]
+      },
+      "Makassar":   { "total_respondents": 62,  "avg_wellbeing": 63.1, "avg_stress": 5.7, "emotional_stability": 59.9,
+        "wellbeing_per_semester": [65.8, 63.5, 61.8, 60.1, 59.4, 58.0, 60.8, 64.3],
+        "stress_per_semester":    [4.2, 5.1, 5.5, 6.1, 6.4, 6.8, 6.0, 5.3],
+        "emotional_dist":         { "Stable": 22, "Mild Distress": 19, "Moderate Distress": 14, "Severe Distress": 7 },
+        "stress_factors":         [84, 78, 72, 62, 58, 52, 54, 46, 42, 34],
+        "coping_strategies":      [142, 128, 122, 114, 82, 80, 72, 64, 50, 42]
+      }
+    },
+    "by_period": {
+      "2023-S1": {
+        "total_respondents": 108, "avg_wellbeing": 62.4, "avg_stress": 5.8, "emotional_stability": 58.2,
+        "wellbeing_per_semester": [65.0, 62.7, 61.0, 59.3, 58.6, 57.2, 60.0, 63.4],
+        "stress_per_semester":    [4.5, 5.4, 5.8, 6.4, 6.7, 7.1, 6.3, 5.6],
+        "emotional_dist":         { "Stable": 38, "Mild Distress": 42, "Moderate Distress": 20, "Severe Distress": 8 },
+        "stress_factors":         [84, 78, 72, 60, 56, 50, 50, 44, 40, 34],
+        "coping_strategies":      [138, 122, 114, 108, 78, 76, 70, 62, 46, 40]
+      },
+      "2023-S2": {
+        "total_respondents": 114, "avg_wellbeing": 60.1, "avg_stress": 6.2, "emotional_stability": 55.7,
+        "wellbeing_per_semester": [62.8, 60.5, 58.8, 57.1, 56.4, 55.0, 57.8, 61.3],
+        "stress_per_semester":    [4.7, 5.6, 6.0, 6.6, 6.9, 7.3, 6.5, 5.8],
+        "emotional_dist":         { "Stable": 36, "Mild Distress": 46, "Moderate Distress": 22, "Severe Distress": 10 },
+        "stress_factors":         [88, 82, 76, 64, 58, 54, 52, 48, 44, 36],
+        "coping_strategies":      [144, 128, 120, 114, 82, 80, 74, 66, 50, 44]
+      },
+      "2024-S1": {
+        "total_respondents": 122, "avg_wellbeing": 63.9, "avg_stress": 5.5, "emotional_stability": 61.3,
+        "wellbeing_per_semester": [66.7, 64.4, 62.7, 61.0, 60.3, 58.9, 61.7, 65.2],
+        "stress_per_semester":    [4.2, 5.1, 5.5, 6.1, 6.4, 6.8, 6.0, 5.3],
+        "emotional_dist":         { "Stable": 44, "Mild Distress": 46, "Moderate Distress": 24, "Severe Distress": 8 },
+        "stress_factors":         [86, 80, 74, 62, 56, 52, 50, 46, 42, 34],
+        "coping_strategies":      [148, 132, 124, 118, 84, 80, 74, 66, 50, 42]
+      },
+      "2024-S2": {
+        "total_respondents": 136, "avg_wellbeing": 65.7, "avg_stress": 5.1, "emotional_stability": 63.8,
+        "wellbeing_per_semester": [68.5, 66.2, 64.5, 62.8, 62.1, 60.7, 63.5, 67.0],
+        "stress_per_semester":    [3.9, 4.8, 5.2, 5.8, 6.1, 6.5, 5.7, 5.0],
+        "emotional_dist":         { "Stable": 50, "Mild Distress": 50, "Moderate Distress": 26, "Severe Distress": 10 },
+        "stress_factors":         [82, 76, 70, 58, 54, 48, 46, 42, 38, 30],
+        "coping_strategies":      [156, 140, 132, 126, 92, 84, 78, 70, 54, 44]
+      }
+    },
+    "stress_factors_labels": ["Academic Assignments", "Exam Pressure", "Time Management", "Financial Issues", "Social Relationships", "Career Uncertainty", "Family Expectations", "Sleep Deprivation", "Thesis/Research", "Campus Environment"],
+    "coping_labels": ["Talk to Friends", "Physical Exercise", "Prayer/Meditation", "Hobbies & Leisure", "Seek Counseling", "Social Media", "Sleep More", "Study Groups", "Journaling", "Avoid/Isolate"]
+  }
+}
